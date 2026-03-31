@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Анкета курсу СТВОРЮЙ</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+
+    <!-- Intl-tel-input CSS для телефона -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.2.1/css/intlTelInput.css">
+
+    <!-- Config & Pixel Setup -->
+    <script>
+        const PIXEL_ID = '1230047148487254'; 
+
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { mono: { bg: '#F9F9F9', black: '#0F0F0F', grey: '#6B6B6B' } },
+                    fontFamily: { sans: ['Manrope', 'sans-serif'], serif: ['Playfair Display', 'serif'] },
+                    animation: { 'fade-in': 'fadeIn 1s ease-out forwards' },
+                    keyframes: { fadeIn: { '0%': { opacity: '0', transform: 'translateY(10px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } } }
+                }
+            }
+        }
+
+        if(PIXEL_ID && PIXEL_ID !== 'YOUR_PIXEL_ID_HERE') {
+            !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', PIXEL_ID);
+            fbq('track', 'PageView');
+        }
+    </script>
+
+    <style>
+        html { scroll-behavior: smooth; }
+        body { background-color: #F9F9F9; color: #0F0F0F; overflow-x: hidden; }
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000; border-radius: 4px; box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        
+        .loader { border: 2px solid #f3f3f3; border-top: 2px solid #000; border-radius: 50%; width: 16px; height: 16px; animation: spin 1s linear infinite; display: none; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        input[type="radio"]:checked + div { border-color: #000; background-color: #000; color: #fff; }
+        .modal-open { overflow: hidden; }
+
+        /* Стилі помилок */
+        .input-error { border-bottom-color: #ef4444 !important; border-color: #ef4444 !important; }
+        .error-msg { color: #ef4444; font-size: 12px; margin-top: 4px; display: none; }
+
+        /* Адаптація intl-tel-input під дизайн сайту */
+        .iti { width: 100%; display: block; }
+        .iti__flag-container { padding: 2px; }
+        /* Прибираємо стандартний бордер плагіна, лишаємо тільки нижній */
+        .iti input, .iti input[type=text], .iti input[type=tel] {
+            width: 100%;
+            background-color: transparent !important;
+            border: none;
+            border-bottom: 1px solid #d1d5db;
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+            border-radius: 0;
+            outline: none;
+        }
+        .iti input:focus { border-bottom-color: #000; }
+        .iti input.input-error { border-bottom-color: #ef4444 !important; }
+    </style>
+</head>
+<body class="antialiased text-sm md:text-base pb-24">
+
+    <!-- HERO -->
+    <section class="pt-12 pb-10 px-6 md:px-24 max-w-5xl mx-auto text-center animate-fade-in">
+        <p class="text-[10px] md:text-xs font-bold uppercase tracking-[0.25em] text-gray-400 mb-6">Відео-урок</p>
+        <h1 class="font-serif text-3xl md:text-5xl lg:text-6xl leading-[1.1] mb-4 text-black font-medium">
+            Як у 2026 році <br><span class="italic text-gray-500">побудувати систему</span> <br>роботи з контентом та візуалом
+        </h1>
+        <p class="font-sans text-xs md:text-sm font-medium text-gray-800 uppercase tracking-wide max-w-xl mx-auto border-t border-black/10 pt-4 mt-6">без хаосу та стресу і зробити це всього за один день</p>
+    </section>
+
+    <!-- VIDEO -->
+    <section class="px-4 md:px-12 max-w-5xl mx-auto mb-16 animate-fade-in" style="animation-delay: 0.2s;">
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/XEON6uOBRv8?si=X8BC3prkh22PEh27?autoplay=1&rel=0&modestbranding=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+    </section>
+
+    <!-- OFFER -->
+    <section class="px-6 md:px-24 max-w-3xl mx-auto text-center mb-16">
+        <div class="text-left md:text-center space-y-8">
+            <div class="space-y-4">
+                <p class="font-serif text-xl md:text-2xl leading-relaxed text-black">Якщо тобі цікавий візуал та контент, і ти готова зробити його кращим та ефективнішим:</p>
+                <p class="text-sm md:text-base text-gray-600 leading-relaxed font-light">Заповнюй цю анкету і почни створювати контент та візуал краще, ніж в улюблених інфлюєнсерів вже з першого тижня навчання. Анкета не зобовʼязує до покупки, це можливість для мене краще познайомитись з вами, підказати по вашому запиту та розказати вам про найвигідніші умови особисто.</p>
+            </div>
+
+            <p class="font-medium text-black text-base md:text-lg border-y border-black/5 py-6">Твій блог має приносити клієнтів на товари, послуги, інфопродукти, а не забирати час.</p>
+
+            <div class="flex flex-col items-center gap-8 pt-4">
+                <a href="#anketa" class="inline-block bg-black text-white px-10 py-5 text-xs md:text-sm font-bold uppercase tracking-[0.2em] hover:bg-gray-800 transition-all shadow-xl hover:-translate-y-1">АНКЕТА ПРЕДЗАПИСУ</a>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-8 h-8 text-gray-300 animate-bounce">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" />
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- FORM -->
+    <section id="anketa" class="px-6 pb-24 bg-white border-t border-gray-100 pt-16">
+        <div class="max-w-xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="font-serif text-3xl md:text-4xl font-medium mb-4">Анкета курсу СТВОРЮЙ</h2>
+                <p class="text-[10px] text-gray-400 uppercase tracking-[0.3em]">Заповнюй форму нижче</p>
+            </div>
+
+            <form id="applicationForm" class="space-y-10" novalidate>
+                <input type="hidden" name="target_sheet" value="Ленд2">
+                
+                <!-- Name -->
+                <div class="relative group">
+                    <input type="text" id="nameInput" name="name" required placeholder=" " class="peer w-full bg-transparent border-b border-gray-200 py-4 text-base focus:border-black focus:outline-none transition-colors">
+                    <label class="absolute left-0 top-4 text-gray-400 text-sm transition-all peer-focus:-top-4 peer-focus:text-xs peer-focus:text-black peer-[:not(:placeholder-shown)]:-top-4 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:text-black pointer-events-none">Твоє ім'я</label>
+                    <div id="nameError" class="error-msg">Мінімум 3 літери, без цифр.</div>
+                </div>
+
+                <!-- Phone (NEW FIELD) -->
+                <div class="relative group">
+                    <label class="text-gray-400 text-[10px] uppercase tracking-wider mb-2 block font-bold">Твій номер телефону</label>
+                    <input type="tel" id="phoneInput" name="phone_raw" required class="w-full">
+                    <div id="phoneError" class="error-msg">Введіть коректний номер телефону.</div>
+                </div>
+
+                <!-- Social -->
+                <div class="relative group">
+                    <input type="text" id="socialInput" name="social" required placeholder=" " class="peer w-full bg-transparent border-b border-gray-200 py-4 text-base focus:border-black focus:outline-none transition-colors">
+                    <label class="absolute left-0 top-4 text-gray-400 text-sm transition-all peer-focus:-top-4 peer-focus:text-xs peer-focus:text-black peer-[:not(:placeholder-shown)]:-top-4 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:text-black pointer-events-none">Instagram або Telegram (@нікнейм)</label>
+                    <div id="socialError" class="error-msg">Мінімум 3 символи.</div>
+                </div>
+
+                <!-- Niche -->
+                <div class="relative group">
+                    <input type="text" id="nicheInput" name="niche" required placeholder=" " class="peer w-full bg-transparent border-b border-gray-200 py-4 text-base focus:border-black focus:outline-none transition-colors">
+                    <label class="absolute left-0 top-4 text-gray-400 text-sm transition-all peer-focus:-top-4 peer-focus:text-xs peer-focus:text-black peer-[:not(:placeholder-shown)]:-top-4 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:text-black pointer-events-none">Твоя ніша</label>
+                    <div id="nicheError" class="error-msg">Обов'язкове поле.</div>
+                </div>
+                
+                <p class="text-center text-[10px] text-gray-400 uppercase tracking-widest pt-4">Заповнюй, і я зв'яжусь з тобою щодо участі</p>
+
+                <!-- Submit Button -->
+                <button type="submit" id="submitBtn" class="w-full bg-black text-white py-5 text-xs md:text-sm font-bold uppercase tracking-[0.25em] hover:bg-gray-800 transition-all shadow-xl hover:shadow-2xl transform hover:-translate-y-1 flex justify-center items-center gap-3">
+                    <span>Відправити анкету</span>
+                    <div class="loader"></div>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- WHY IMPORTANT -->
+    <section class="py-24 px-6 md:px-24 bg-gray-50 border-y border-gray-100">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="font-serif text-3xl md:text-4xl text-center mb-16 leading-tight">Чому важливо заповнити анкету прямо зараз:</h2>
+            
+            <div class="grid md:grid-cols-2 gap-x-12 gap-y-16">
+                <!-- Point 1 -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-4 mb-2">
+                        <span class="w-10 h-10 rounded-full border border-black flex items-center justify-center font-serif text-xl italic">01</span>
+                        <div class="h-[1px] flex-grow bg-black/10"></div>
+                    </div>
+                    <p class="text-gray-700 leading-relaxed text-sm md:text-base">
+                        На основі твоєї анкети я або моя команда проведемо аудит твого профілю. 
+                        <span class="block mt-4 font-bold text-black border-l-2 border-black pl-4">Ти отримаєш конкретний перелік помилок у візуалі та сенсах, які прямо зараз зливають твоїх клієнтів.</span>
+                    </p>
+                </div>
+
+                <!-- Point 2 -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-4 mb-2">
+                        <span class="w-10 h-10 rounded-full border border-black flex items-center justify-center font-serif text-xl italic">02</span>
+                        <div class="h-[1px] flex-grow bg-black/10"></div>
+                    </div>
+                    <p class="text-gray-700 leading-relaxed text-sm md:text-base">
+                        Ми розповімо, як адаптувати <strong>СИСТЕМУ</strong> під твій графік, щоб знімати контент на тиждень вперед, використовуючи лише смартфон та світло з вікна.
+                    </p>
+                </div>
+
+                <!-- Point 3 -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-4 mb-2">
+                        <span class="w-10 h-10 rounded-full border border-black flex items-center justify-center font-serif text-xl italic">03</span>
+                        <div class="h-[1px] flex-grow bg-black/10"></div>
+                    </div>
+                    <p class="text-gray-700 leading-relaxed text-sm md:text-base">
+                        Це останній потік, де на навчанні немає кураторів - <strong>я веду кожного студента особисто</strong>. Кількість місць обмежена моїм часом, тому пріоритет у черзі отримують ті, хто заповнив анкету.
+                    </p>
+                </div>
+
+                <!-- Point 4 -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-4 mb-2">
+                        <span class="w-10 h-10 rounded-full border border-black flex items-center justify-center font-serif text-xl italic">04</span>
+                        <div class="h-[1px] flex-grow bg-black/10"></div>
+                    </div>
+                    <p class="text-gray-700 leading-relaxed text-sm md:text-base">
+                        Тільки для учасників анкети відкриються закриті умови покупки, яких не буде у загальному доступі.
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-20 text-center">
+                <a href="#anketa" class="inline-block bg-black text-white px-12 py-6 text-xs md:text-sm font-bold uppercase tracking-[0.25em] hover:bg-gray-800 transition-all shadow-2xl hover:-translate-y-1">АНКЕТА ПРЕДЗАПИСУ</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section class="py-24 px-6 md:px-24 bg-white">
+        <div class="max-w-5xl mx-auto text-center">
+            <h2 class="font-serif text-3xl md:text-5xl mb-16">Результати учнів курсу СТВОРЮЙ</h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="aspect-[3/4] bg-gray-50 rounded-sm border border-gray-100 flex items-center justify-center">
+                    <p class="text-[10px] text-gray-300 uppercase tracking-widest">Результат 1</p>
+                </div>
+                <div class="aspect-[3/4] bg-gray-50 rounded-sm border border-gray-100 flex items-center justify-center">
+                    <p class="text-[10px] text-gray-300 uppercase tracking-widest">Результат 2</p>
+                </div>
+                <div class="aspect-[3/4] bg-gray-50 rounded-sm border border-gray-100 flex items-center justify-center">
+                    <p class="text-[10px] text-gray-300 uppercase tracking-widest">Результат 3</p>
+                </div>
+                <div class="aspect-[3/4] bg-gray-50 rounded-sm border border-gray-100 flex items-center justify-center">
+                    <p class="text-[10px] text-gray-300 uppercase tracking-widest">Результат 4</p>
+                </div>
+            </div>
+            
+            <p class="mt-12 text-gray-400 italic text-sm font-light">(Галерея з результатами буде додана згодом)</p>
+        </div>
+    </section>
+
+    <!-- SUCCESS MODAL POPUP -->
+    <div id="successModal" class="fixed inset-0 z-[60] hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity opacity-0 duration-300" id="modalBackdrop"></div>
+        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+            <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
+                <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-2xl transition-all sm:my-8 w-full max-w-sm opacity-0 scale-95 duration-300" id="modalPanel">
+                    <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4 text-center">
+                        <div class="mx-auto flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full bg-green-50 mb-5">
+                            <svg class="h-8 w-8 text-black" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                            </svg>
+                        </div>
+                        <div class="mt-2">
+                            <h3 class="font-serif text-2xl font-semibold leading-6 text-gray-900 mb-2" id="modal-title">Анкету надіслано!</h3>
+                            <div class="mt-2">
+                                <p class="text-sm text-gray-500 leading-relaxed">Дякую за твій інтерес до курсу СТВОРЮЙ. <br>Я отримала твою анкету і зв'яжусь з тобою в Instagram або Telegram найближчим часом.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-4 sm:flex sm:flex-row-reverse sm:px-6 justify-center">
+                        <button type="button" onclick="closeModal()" class="inline-flex w-full justify-center rounded-sm bg-black px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 transition-colors uppercase tracking-wider sm:w-auto">
+                            Зрозуміло
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- STICKY BUTTONS -->
+    <div class="fixed bottom-0 left-0 w-full p-4 z-40 bg-gradient-to-t from-white via-white to-transparent pt-8 md:hidden">
+        <a href="#anketa" class="block w-full bg-black text-white text-center py-4 text-[10px] font-bold uppercase tracking-[0.2em] shadow-2xl">Заповнити анкету</a>
+    </div>
+    <a href="#anketa" class="hidden md:flex fixed bottom-8 right-8 z-40 bg-black text-white w-auto px-8 py-4 items-center gap-3 shadow-2xl hover:bg-gray-800 transition-all rounded-sm group">
+        <span class="text-xs font-bold uppercase tracking-[0.15em]">Заповнити анкету</span>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 group-hover:translate-x-1 transition-transform"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+    </a>
+
+    <!-- Intl-tel-input JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.2.1/js/intlTelInput.min.js"></script>
+
+    <!-- SCRIPTS -->
+    <script>
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwSaSkvHXzOlz-7N1eQQWW8Rt7k-dWSNoZrTmcZ0TMOUg7n6VGPDTyK66ed2eD1Uk6f/exec';
+
+        // Ініціалізація телефону з автовизначенням країни по IP
+        const phoneInputField = document.querySelector("#phoneInput");
+        const phoneInput = window.intlTelInput(phoneInputField, {
+            initialCountry: "auto",
+            geoIpLookup: function(callback) {
+                fetch("https://ipapi.co/json")
+                    .then(function(res) { return res.json(); })
+                    .then(function(data) { callback(data.country_code); })
+                    .catch(function() { callback("ua"); }); // Україна за замовчуванням
+            },
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.2.1/js/utils.js",
+        });
+
+        // UTM
+        function getUTMParameters() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                utm_source: params.get('utm_source') || '',
+                utm_medium: params.get('utm_medium') || '',
+                utm_campaign: params.get('utm_campaign') || ''
+            };
+        }
+
+        const form = document.getElementById('applicationForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const btnText = submitBtn.querySelector('span');
+        const loader = submitBtn.querySelector('.loader');
+
+        // Валідація текстових полів
+        function validateTextField(inputElement, errorElementId, allowNumbers = false) {
+            const errorElement = document.getElementById(errorElementId);
+            const value = inputElement.value.trim();
+            const hasNumbers = /\d/.test(value);
+            
+            if (value.length < 2 || (!allowNumbers && hasNumbers)) {
+                inputElement.classList.add('input-error');
+                if(errorElement) errorElement.style.display = 'block';
+                return false;
+            } else {
+                inputElement.classList.remove('input-error');
+                if(errorElement) errorElement.style.display = 'none';
+                return true;
+            }
+        }
+
+        // Прибирання помилок при введенні
+        const fields = [
+            { id: 'nameInput', error: 'nameError' },
+            { id: 'socialInput', error: 'socialError' },
+            { id: 'nicheInput', error: 'nicheError' }
+        ];
+
+        fields.forEach(field => {
+            const el = document.getElementById(field.id);
+            if(el) {
+                el.addEventListener('input', function() {
+                    this.classList.remove('input-error');
+                    const err = document.getElementById(field.error);
+                    if(err) err.style.display = 'none';
+                });
+            }
+        });
+
+        // Прибирання помилки телефону
+        phoneInputField.addEventListener('input', function() {
+            this.classList.remove('input-error');
+            document.getElementById('phoneError').style.display = 'none';
+        });
+
+        // Modal Logic
+        const modal = document.getElementById('successModal');
+        const modalBackdrop = document.getElementById('modalBackdrop');
+        const modalPanel = document.getElementById('modalPanel');
+
+        function showModal() {
+            modal.classList.remove('hidden');
+            document.body.classList.add('modal-open');
+            setTimeout(() => {
+                modalBackdrop.classList.remove('opacity-0');
+                modalPanel.classList.remove('opacity-0', 'scale-95');
+                modalPanel.classList.add('opacity-100', 'scale-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            modalBackdrop.classList.add('opacity-0');
+            modalPanel.classList.remove('opacity-100', 'scale-100');
+            modalPanel.classList.add('opacity-0', 'scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.classList.remove('modal-open');
+            }, 300);
+        }
+
+        // Submit Logic
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const isNameValid = validateTextField(document.getElementById('nameInput'), 'nameError', false);
+            const isSocialValid = validateTextField(document.getElementById('socialInput'), 'socialError', true);
+            const isNicheValid = validateTextField(document.getElementById('nicheInput'), 'nicheError', true);
+            
+            // Валідація телефону через бібліотеку
+            const isPhoneValid = phoneInput.isValidNumber();
+            const phoneError = document.getElementById('phoneError');
+            
+            if (!isPhoneValid) {
+                phoneInputField.classList.add('input-error');
+                phoneError.style.display = 'block';
+            }
+
+            if (!isNameValid || !isSocialValid || !isNicheValid || !isPhoneValid) {
+                return;
+            }
+            
+            submitBtn.disabled = true;
+            btnText.textContent = 'Відправка...';
+            loader.style.display = 'block';
+
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+            
+            // Записуємо ПОВНИЙ номер з кодом країни
+            data.phone = phoneInput.getNumber(); 
+            
+            const utms = getUTMParameters();
+            const finalData = { ...data, ...utms };
+
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                body: JSON.stringify(finalData),
+                mode: 'no-cors' 
+            })
+            .then(() => {
+                showModal();
+                form.reset();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Щось пішло не так.');
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                btnText.textContent = 'Відправити анкету';
+                loader.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
