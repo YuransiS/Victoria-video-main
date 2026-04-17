@@ -16,63 +16,8 @@
     <!-- Intl-tel-input CSS для телефона -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.2.1/css/intlTelInput.css">
 
-    <!-- Config & Pixel Setup -->
-    <script>
-        const PIXEL_ID = '1230047148487254'; 
-
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: { mono: { bg: '#F9F9F9', black: '#0F0F0F', grey: '#6B6B6B' } },
-                    fontFamily: { sans: ['Manrope', 'sans-serif'], serif: ['Playfair Display', 'serif'] },
-                    animation: { 'fade-in': 'fadeIn 1s ease-out forwards' },
-                    keyframes: { fadeIn: { '0%': { opacity: '0', transform: 'translateY(10px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } } }
-                }
-            }
-        }
-
-        if(PIXEL_ID && PIXEL_ID !== 'YOUR_PIXEL_ID_HERE') {
-            !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', PIXEL_ID);
-            fbq('track', 'PageView');
-        }
-    </script>
-
-    <style>
-        html { scroll-behavior: smooth; }
-        body { background-color: #F9F9F9; color: #0F0F0F; overflow-x: hidden; }
-        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000; border-radius: 4px; box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-        
-        .loader { border: 2px solid #f3f3f3; border-top: 2px solid #000; border-radius: 50%; width: 16px; height: 16px; animation: spin 1s linear infinite; display: none; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        
-        input[type="radio"]:checked + div { border-color: #000; background-color: #000; color: #fff; }
-        .modal-open { overflow: hidden; }
-
-        /* Стилі помилок */
-        .input-error { border-bottom-color: #ef4444 !important; border-color: #ef4444 !important; }
-        .error-msg { color: #ef4444; font-size: 12px; margin-top: 4px; display: none; }
-
-        /* Адаптація intl-tel-input під дизайн сайту */
-        .iti { width: 100%; display: block; }
-        .iti__flag-container { padding: 2px; }
-        /* Прибираємо стандартний бордер плагіна, лишаємо тільки нижній */
-        .iti input, .iti input[type=text], .iti input[type=tel] {
-            width: 100%;
-            background-color: transparent !important;
-            border: none;
-            border-bottom: 1px solid #d1d5db;
-            padding-top: 0.75rem;
-            padding-bottom: 0.75rem;
-            font-size: 1rem;
-            transition: border-color 0.2s;
-            border-radius: 0;
-            outline: none;
-        }
-        .iti input:focus { border-bottom-color: #000; }
-        .iti input.input-error { border-bottom-color: #ef4444 !important; }
-    </style>
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="antialiased text-sm md:text-base pb-24">
 
@@ -116,6 +61,10 @@
         <div class="max-w-xl mx-auto">
             <div class="text-center mb-12">
                 <h2 class="font-serif text-3xl md:text-4xl font-medium mb-4">Анкета курсу СТВОРЮЙ</h2>
+                <div class="flex items-center justify-center gap-2 mb-2">
+                    <span class="pulse-dot"></span>
+                    <p id="liveCounter" class="text-[11px] text-gray-400 uppercase tracking-[0.2em] font-medium live-counter-anim">Зараз заповнюють: 6 людей</p>
+                </div>
                 <p class="text-[10px] text-gray-400 uppercase tracking-[0.3em]">Заповнюй форму нижче</p>
             </div>
 
@@ -432,156 +381,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.2.1/js/intlTelInput.min.js"></script>
 
     <!-- SCRIPTS -->
-    <script>
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwSaSkvHXzOlz-7N1eQQWW8Rt7k-dWSNoZrTmcZ0TMOUg7n6VGPDTyK66ed2eD1Uk6f/exec';
-
-        // Ініціалізація телефону з автовизначенням країни по IP
-        const phoneInputField = document.querySelector("#phoneInput");
-        const phoneInput = window.intlTelInput(phoneInputField, {
-            initialCountry: "auto",
-            geoIpLookup: function(callback) {
-                fetch("https://ipapi.co/json")
-                    .then(function(res) { return res.json(); })
-                    .then(function(data) { callback(data.country_code); })
-                    .catch(function() { callback("ua"); }); // Україна за замовчуванням
-            },
-            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.2.1/js/utils.js",
-        });
-
-        // UTM
-        function getUTMParameters() {
-            const params = new URLSearchParams(window.location.search);
-            return {
-                utm_source: params.get('utm_source') || '',
-                utm_medium: params.get('utm_medium') || '',
-                utm_campaign: params.get('utm_campaign') || ''
-            };
-        }
-
-        const form = document.getElementById('applicationForm');
-        const submitBtn = document.getElementById('submitBtn');
-        const btnText = submitBtn.querySelector('span');
-        const loader = submitBtn.querySelector('.loader');
-
-        // Валідація текстових полів
-        function validateTextField(inputElement, errorElementId, allowNumbers = false) {
-            const errorElement = document.getElementById(errorElementId);
-            const value = inputElement.value.trim();
-            const hasNumbers = /\d/.test(value);
-            
-            if (value.length < 2 || (!allowNumbers && hasNumbers)) {
-                inputElement.classList.add('input-error');
-                if(errorElement) errorElement.style.display = 'block';
-                return false;
-            } else {
-                inputElement.classList.remove('input-error');
-                if(errorElement) errorElement.style.display = 'none';
-                return true;
-            }
-        }
-
-        // Прибирання помилок при введенні
-        const fields = [
-            { id: 'nameInput', error: 'nameError' },
-            { id: 'socialInput', error: 'socialError' },
-            { id: 'nicheInput', error: 'nicheError' }
-        ];
-
-        fields.forEach(field => {
-            const el = document.getElementById(field.id);
-            if(el) {
-                el.addEventListener('input', function() {
-                    this.classList.remove('input-error');
-                    const err = document.getElementById(field.error);
-                    if(err) err.style.display = 'none';
-                });
-            }
-        });
-
-        // Прибирання помилки телефону
-        phoneInputField.addEventListener('input', function() {
-            this.classList.remove('input-error');
-            document.getElementById('phoneError').style.display = 'none';
-        });
-
-        // Modal Logic
-        const modal = document.getElementById('successModal');
-        const modalBackdrop = document.getElementById('modalBackdrop');
-        const modalPanel = document.getElementById('modalPanel');
-
-        function showModal() {
-            modal.classList.remove('hidden');
-            document.body.classList.add('modal-open');
-            setTimeout(() => {
-                modalBackdrop.classList.remove('opacity-0');
-                modalPanel.classList.remove('opacity-0', 'scale-95');
-                modalPanel.classList.add('opacity-100', 'scale-100');
-            }, 10);
-        }
-
-        function closeModal() {
-            modalBackdrop.classList.add('opacity-0');
-            modalPanel.classList.remove('opacity-100', 'scale-100');
-            modalPanel.classList.add('opacity-0', 'scale-95');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                document.body.classList.remove('modal-open');
-            }, 300);
-        }
-
-        // Submit Logic
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const isNameValid = validateTextField(document.getElementById('nameInput'), 'nameError', false);
-            const isSocialValid = validateTextField(document.getElementById('socialInput'), 'socialError', true);
-            const isNicheValid = validateTextField(document.getElementById('nicheInput'), 'nicheError', true);
-            
-            // Валідація телефону через бібліотеку
-            const isPhoneValid = phoneInput.isValidNumber();
-            const phoneError = document.getElementById('phoneError');
-            
-            if (!isPhoneValid) {
-                phoneInputField.classList.add('input-error');
-                phoneError.style.display = 'block';
-            }
-
-            if (!isNameValid || !isSocialValid || !isNicheValid || !isPhoneValid) {
-                return;
-            }
-            
-            submitBtn.disabled = true;
-            btnText.textContent = 'Відправка...';
-            loader.style.display = 'block';
-
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData.entries());
-            
-            // Записуємо ПОВНИЙ номер з кодом країни
-            data.phone = phoneInput.getNumber(); 
-            
-            const utms = getUTMParameters();
-            const finalData = { ...data, ...utms };
-
-            fetch(GOOGLE_SCRIPT_URL, {
-                method: 'POST',
-                body: JSON.stringify(finalData),
-                mode: 'no-cors' 
-            })
-            .then(() => {
-                showModal();
-                form.reset();
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Щось пішло не так.');
-            })
-            .finally(() => {
-                submitBtn.disabled = false;
-                btnText.textContent = 'Відправити анкету';
-                loader.style.display = 'none';
-            });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
